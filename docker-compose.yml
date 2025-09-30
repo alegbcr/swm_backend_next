@@ -1,0 +1,48 @@
+version: "3.3"
+
+services:
+  # 1. SERVICIO MYSQL (Sin cambios)
+  mysql:
+    image: mysql:8.0
+    environment:
+      - MYSQL_DATABASE=my_store
+      - PMA_USER=root
+      - MYSQL_ROOT_PASSWORD=admin123
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+
+  # 2. SERVICIO PHPMYADMIN (Sin cambios)
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_HOST=mysql
+      - MYSQL_ROOT_PASSWORD=admin123
+    ports:
+      - 8080:80
+    depends_on:
+      - mysql # Asegura que MySQL inicie primero
+
+  # 3. NUEVO SERVICIO NEXT.JS (Reemplaza a tu Node/Express)
+  nextjs:
+    # 💡 Usa 'build' para construir tu imagen a partir del Dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # 💡 Montamos el código para desarrollo en vivo (Hot Reload)
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules # Evita sobreescribir node_modules
+    ports:
+      - 3000:3000 # El puerto estándar de Next.js
+    # 💡 Variables de entorno para que Next.js sepa dónde está la DB
+    environment:
+      # Next.js Serverless Function necesita usar el nombre del servicio Docker para la DB
+      - DATABASE_URL=mysql://root:admin123@mysql:3306/my_store
+      - NODE_ENV=development
+    # 💡 Asegura que la DB esté lista antes de iniciar la app
+    depends_on:
+      - mysql
+    # 💡 Comando para iniciar Next.js en modo desarrollo
+    command: npm run dev

@@ -1,8 +1,11 @@
 // app/api/customerContact/route.js
 
 import { NextResponse } from "next/server";
-import CustomerContactService from "@/lib/services/customerContact.service";
-import { createCustomerContactSchema } from "@/lib/libs/schemas/customerContact.schema";
+import {
+  CustomerContactService,
+  NotFoundError,
+} from "../../../lib/services/customerContact.service";
+import { createCustomerContactSchema } from "../../../lib/libs/schemas/customerContact.schema";
 
 const service = new CustomerContactService();
 const validate = (schema, data) => {

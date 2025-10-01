@@ -1,4 +1,7 @@
-const { models } = require("../db/sequelize");
+const initializeSequelize = require("../db/sequelize");
+
+const sequelize = initializeSequelize();
+const models = sequelize.models;
 
 class NotFoundError extends Error {
   constructor(message) {

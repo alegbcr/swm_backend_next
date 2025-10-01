@@ -1,13 +1,10 @@
 // .sequelizerc (Actualizado)
 
 module.exports = {
-  // 🚨 CAMBIO DE RUTA: Apunta a tu nuevo archivo de configuración
-  config: "./lib/db/config.js", 
-  
-  // 🚨 CAMBIO DE RUTA: Apunta a la nueva ubicación de modelos
-  "models-path": "./lib/db/models/", 
-  
+  config: "./src/lib/db/config.js",
+  "models-path": "./src/lib/db/models/",
+
   // 💡 Asumiendo que tus migraciones también van en lib/db/
-  "migrations-path": "./lib/db/migrations/",
-  "seeders-path": "./lib/db/seeders/",
+  "migrations-path": "./src/lib/db/migrations/",
+  "seeders-path": "./src/lib/db/seeders/",
 };

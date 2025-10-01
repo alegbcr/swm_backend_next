@@ -1,7 +1,10 @@
 // app/api/customerContact/[id]/route.js
 
 import { NextResponse } from "next/server";
-import CustomerContactService from "@/lib/services/customerContact.service";
+import {
+  CustomerContactService,
+  NotFoundError,
+} from "@/lib/services/customerContact.service";
 import {
   updateCustomerContactSchema,
   getCustomerContactSchema,

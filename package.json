@@ -6,16 +6,22 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "migrations:generate": "sequelize-cli migration:generate --options-path .sequelizerc",
+    "migrations:run": "sequelize-cli db:migrate --options-path .sequelizerc",
+    "migrations:revert": "sequelize-cli db:migrate:undo --options-path .sequelizerc",
+    "migrations:delete": "sequelize-cli db:migrate:undo:all --options-path .sequelizerc"
   },
   "dependencies": {
     "joi": "^18.0.1",
     "mysql2": "^3.15.1",
     "next": "15.5.4",
+    "pg-hstore": "^2.3.4",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "sequelize": "^6.37.7",
-    "sequelize-cli": "^6.6.3"
+    "sequelize-cli": "^6.6.3",
+    "sqlite3": "^5.1.7"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

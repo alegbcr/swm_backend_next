@@ -2,7 +2,7 @@
 
 // 🚨 La línea require('dotenv').config(); HA SIDO ELIMINADA.
 
-const config = {
+export const config = {
   // Entorno
   env: process.env.NODE_ENV || "development",
   isProd: process.env.NODE_ENV === "production",
@@ -18,5 +18,3 @@ const config = {
   // URL de Conexión (Sequelize prefiere una sola URL si está disponible)
   dbUrl: process.env.DATABASE_URL,
 };
-
-module.exports = { config };

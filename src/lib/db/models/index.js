@@ -1,15 +1,15 @@
 // lib/db/models/index.js (Actualizado)
 
-const {
+import {
   CustomerContact,
   CustomerContactSchema,
-} = require("./customerContact.model");
+} from "./customerContact.model";
 
 /**
  * Función que inicializa todos los modelos de Sequelize.
  * @param {Sequelize} sequelize La instancia de Sequelize.
  */
-function setupModels(sequelize) {
+export function setupModels(sequelize) {
   // Inicializamos cada modelo
   CustomerContact.init(
     CustomerContactSchema,
@@ -23,6 +23,3 @@ function setupModels(sequelize) {
   //   }
   // }
 }
-
-// 💡 Nuevo: Exportamos un objeto con la función
-module.exports = setupModels;

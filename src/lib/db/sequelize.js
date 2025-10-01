@@ -1,15 +1,15 @@
 // lib/db/sequelize.js
 
-const { Sequelize } = require("sequelize");
+import { Sequelize } from "sequelize";
 // 🚨 CAMBIO 1: El path de configuración debe ser actualizado.
-const { config } = require("../config/config");
-const setupModels = require("./models/index");
+import { config } from "../config/config";
+import { setupModels } from "./models/index";
 
 // 🚨 CAMBIO 2: Usamos una variable global para almacenar la conexión
 // y reusarla si ya existe. Esto es CLAVE en Serverless.
 let sequelizeInstance;
 
-const initializeSequelize = () => {
+export const initializeSequelize = () => {
   // Si la instancia ya existe, la devolvemos inmediatamente.
   if (sequelizeInstance) {
     return sequelizeInstance;
@@ -43,6 +43,3 @@ const initializeSequelize = () => {
 
   return sequelizeInstance;
 };
-
-// 🚨 CAMBIO 3: Exportamos la función de inicialización.
-module.exports = initializeSequelize;

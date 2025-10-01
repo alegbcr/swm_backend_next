@@ -24,7 +24,7 @@ const bank = Joi.string().max(255).allow(null);
 const signature = Joi.string().allow(null);
 const sigdate = Joi.date().allow(null);
 
-const createCustomerContactSchema = Joi.object({
+export const createCustomerContactSchema = Joi.object({
   fname: fname.required(),
   lname: lname.required(),
   phone: phone.required(),
@@ -48,7 +48,7 @@ const createCustomerContactSchema = Joi.object({
   sigdate,
 });
 
-const updateCustomerContactSchema = Joi.object({
+export const updateCustomerContactSchema = Joi.object({
   fname,
   lname,
   phone,
@@ -72,12 +72,6 @@ const updateCustomerContactSchema = Joi.object({
   sigdate,
 });
 
-const getCustomerContactSchema = Joi.object({
+export const getCustomerContactSchema = Joi.object({
   id: id.required(),
 });
-
-module.exports = {
-  createCustomerContactSchema,
-  updateCustomerContactSchema,
-  getCustomerContactSchema,
-};

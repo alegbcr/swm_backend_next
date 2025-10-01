@@ -1,8 +1,8 @@
-const { Sequelize, DataTypes, Model } = require("sequelize");
+import { Sequelize, DataTypes, Model } from "sequelize";
 
-const CUSTOMER_CONTACT_TABLE = "customerContact";
+export const CUSTOMER_CONTACT_TABLE = "customerContact";
 
-const CustomerContactSchema = {
+export const CustomerContactSchema = {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -112,7 +112,7 @@ const CustomerContactSchema = {
   },
 };
 
-class CustomerContact extends Model {
+export class CustomerContact extends Model {
   static associate() {
     // Aquí van las relaciones (por ejemplo, Customer.hasMany(...))
   }
@@ -126,9 +126,3 @@ class CustomerContact extends Model {
     };
   }
 }
-
-module.exports = {
-  CUSTOMER_CONTACT_TABLE,
-  CustomerContactSchema,
-  CustomerContact,
-};

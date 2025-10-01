@@ -1,9 +1,9 @@
 // lib/db/config.js
 
 // 🚨 CAMBIO DE RUTA: Apuntamos al nuevo archivo de configuración.
-const { config } = require("../config/config");
+const { config } = require("@/lib/config/config");
 
-module.exports = {
+export default {
   // Configuración para el entorno de desarrollo (usado por la CLI)
   development: {
     url: config.dbUrl || "sqlite::memory:", // Usa la URL de la DB o una base de datos en memoria para desarrollo

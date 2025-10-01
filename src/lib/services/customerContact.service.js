@@ -1,9 +1,9 @@
-const initializeSequelize = require("../db/sequelize");
+import { initializeSequelize } from "@/lib/db/sequelize";
 
 const sequelize = initializeSequelize();
 const models = sequelize.models;
 
-class NotFoundError extends Error {
+export class NotFoundError extends Error {
   constructor(message) {
     super(message);
     this.name = "NotFoundError";
@@ -11,7 +11,7 @@ class NotFoundError extends Error {
   }
 }
 
-class CustomerContactService {
+export class CustomerContactService {
   constructor() {}
 
   async create(data) {
@@ -51,6 +51,3 @@ class CustomerContactService {
     return true;
   }
 }
-
-// Exportamos la clase CustomerContactService y el nuevo error
-module.exports = { CustomerContactService, NotFoundError };

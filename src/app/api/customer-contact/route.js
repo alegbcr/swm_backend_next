@@ -4,13 +4,11 @@ import { NextResponse } from "next/server";
 import {
   CustomerContactService,
   NotFoundError,
-} from "../../../lib/services/customerContact.service";
-import { createCustomerContactSchema } from "../../../lib/libs/schemas/customerContact.schema";
+} from "@/lib/services/customerContact.service";
+import { createCustomerContactSchema } from "@/lib/libs/schemas/customerContact.schema";
+import { validate, ValidationError } from "@/lib/validation.handler";
 
 const service = new CustomerContactService();
-const validate = (schema, data) => {
-  /* ... (Tu lógica de validación) ... */
-};
 
 // GET /api/customerContact (Obtener TODOS)
 export async function GET() {
@@ -35,13 +33,25 @@ export async function POST(request) {
     const customer = await service.create(body);
     return NextResponse.json(customer, { status: 201 });
   } catch (err) {
-    console.error("Error handling POST:", err.message);
-    // Manejo de errores de validación y servidor
-    const status =
-      err.message && err.message.includes("validation") ? 400 : 500;
+    console.error("Error handling GET by ID:", err.message);
+
+    // --- Manejo de Errores ---
+    if (err instanceof NotFoundError) {
+      return NextResponse.json({ message: err.message }, { status: 404 });
+    }
+
+    // 💡 NUEVO: Manejo del error de validación explícito
+    if (err instanceof ValidationError) {
+      return NextResponse.json(
+        { error: err.message, details: err.details },
+        { status: 400 }
+      );
+    }
+
+    // El resto de los errores (servidor)
     return NextResponse.json(
-      { error: err.message || "Internal Server Error" },
-      { status }
+      { error: "Internal Server Error" },
+      { status: 500 }
     );
   }
 }

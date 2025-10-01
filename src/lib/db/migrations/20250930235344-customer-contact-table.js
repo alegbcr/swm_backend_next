@@ -1,11 +1,11 @@
 "use strict";
-const {
+import {
   CUSTOMER_CONTACT_TABLE,
   CustomerContactSchema,
-} = require("../models/customerContact.model");
+} from "../models/customerContact.model";
 
 /** @type {import('sequelize-cli').Migration} */
-module.exports = {
+export default {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable(
       CUSTOMER_CONTACT_TABLE,

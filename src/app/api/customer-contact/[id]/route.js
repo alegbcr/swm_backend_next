@@ -8,12 +8,10 @@ import {
 import {
   updateCustomerContactSchema,
   getCustomerContactSchema,
-} from "@/lib/schemas/customerContact.schema";
+} from "@/lib/libs/schemas/customerContact.schema";
+import { validate, ValidationError } from "@/lib/validation.handler";
 
 const service = new CustomerContactService();
-const validate = (schema, data) => {
-  /* ... (Tu lógica de validación) ... */
-};
 
 // GET /api/customerContact/:id (Obtener por ID)
 // El 'params' contiene { id: 'valor_del_id' }
@@ -29,17 +27,23 @@ export async function GET(request, { params }) {
   } catch (err) {
     console.error("Error handling GET by ID:", err.message);
 
-    // 💡 Aquí manejamos el error específico
+    // --- Manejo de Errores ---
     if (err instanceof NotFoundError) {
       return NextResponse.json({ message: err.message }, { status: 404 });
     }
 
-    // El resto de los errores (validación o servidor)
-    const status =
-      err.message && err.message.includes("validation") ? 400 : 500;
+    // 💡 NUEVO: Manejo del error de validación explícito
+    if (err instanceof ValidationError) {
+      return NextResponse.json(
+        { error: err.message, details: err.details },
+        { status: 400 }
+      );
+    }
+
+    // El resto de los errores (servidor)
     return NextResponse.json(
-      { error: err.message || "Internal Server Error" },
-      { status }
+      { error: "Internal Server Error" },
+      { status: 500 }
     );
   }
 }
@@ -65,12 +69,25 @@ export async function PATCH(request, { params }) {
 
     return NextResponse.json(customer, { status: 200 });
   } catch (err) {
-    console.error("Error handling PATCH:", err.message);
-    const status =
-      err.message && err.message.includes("validation") ? 400 : 500;
+    console.error("Error handling GET by ID:", err.message);
+
+    // --- Manejo de Errores ---
+    if (err instanceof NotFoundError) {
+      return NextResponse.json({ message: err.message }, { status: 404 });
+    }
+
+    // 💡 NUEVO: Manejo del error de validación explícito
+    if (err instanceof ValidationError) {
+      return NextResponse.json(
+        { error: err.message, details: err.details },
+        { status: 400 }
+      );
+    }
+
+    // El resto de los errores (servidor)
     return NextResponse.json(
-      { error: err.message || "Internal Server Error" },
-      { status }
+      { error: "Internal Server Error" },
+      { status: 500 }
     );
   }
 }
@@ -97,12 +114,25 @@ export async function DELETE(request, { params }) {
       { status: 200 }
     );
   } catch (err) {
-    console.error("Error handling DELETE:", err.message);
-    const status =
-      err.message && err.message.includes("validation") ? 400 : 500;
+    console.error("Error handling GET by ID:", err.message);
+
+    // --- Manejo de Errores ---
+    if (err instanceof NotFoundError) {
+      return NextResponse.json({ message: err.message }, { status: 404 });
+    }
+
+    // 💡 NUEVO: Manejo del error de validación explícito
+    if (err instanceof ValidationError) {
+      return NextResponse.json(
+        { error: err.message, details: err.details },
+        { status: 400 }
+      );
+    }
+
+    // El resto de los errores (servidor)
     return NextResponse.json(
-      { error: err.message || "Internal Server Error" },
-      { status }
+      { error: "Internal Server Error" },
+      { status: 500 }
     );
   }
 }

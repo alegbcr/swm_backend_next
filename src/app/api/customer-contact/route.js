@@ -26,6 +26,7 @@ export async function GET() {
 
 // POST /api/customerContact (Crear uno nuevo)
 export async function POST(request) {
+  console.log(request);
   try {
     const body = await request.json();
     validate(createCustomerContactSchema, body);

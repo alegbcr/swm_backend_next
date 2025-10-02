@@ -36,7 +36,7 @@ export default function CustomerForm() {
 
     // 💡 Paso 3: Enviar los datos a la API Route
     try {
-      const res = await fetch("/api/customerContact", {
+      const res = await fetch("/api/customer-contact", {
         // <--- Asegúrate de usar la ruta correcta (customerContact, no customer-contact)
         method: "POST",
         headers: { "Content-Type": "application/json" },
